@@ -4,7 +4,7 @@
   "description": "An exception middleware designed for use with CORS, but will accept any RequestHandler.",
   "main": "index.js",
   "scripts": {
-    "test": "test"
+    "test": "jest"
   },
   "repository": {
     "type": "git",
