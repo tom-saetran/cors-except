@@ -1,6 +1,6 @@
 {
   "name": "cors-except",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "An exception middleware designed for use with CORS, but will accept any middleware.",
   "main": "dist/index.js",
   "scripts": {
