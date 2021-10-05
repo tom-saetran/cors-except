@@ -15,7 +15,7 @@ import { NextFunction, Request, RequestHandler, Response } from "express"
  * ```ts
  * import cors from "cors"
  * import express from "express"
- * import except from "..."
+ * import except from "cors-except"
  *
  * const { FRONTEND_URL } = process.env
  * if (!FRONTEND_URL) throw new Error("FRONTEND_URL is missing")
