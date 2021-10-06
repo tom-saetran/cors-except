@@ -1,3 +1,11 @@
+![NPM license](https://img.shields.io/npm/l/cors-except)
+![GitHub contributors](https://img.shields.io/github/contributors/tom-saetran/cors-except)
+![GitHub issues](https://img.shields.io/github/issues/tom-saetran/cors-except)
+![GitHub release (latest by date)](https://img.shields.io/github/v/release/tom-saetran/cors-except)
+![GitHub release date](https://img.shields.io/github/release-date/tom-saetran/cors-except)
+![NPM downloads](https://img.shields.io/npm/dm/cors-except)
+![GitHub package.json dynamic](https://img.shields.io/github/package-json/keywords/tom-saetran/cors-except)
+
 # cors-except
 
 This package provides a middleware that allows CORS requests to be selectively checked. It is useful for services that needs to be accessed by browsers.
