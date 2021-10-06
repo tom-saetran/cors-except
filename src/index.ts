@@ -1,4 +1,4 @@
-import { NextFunction, Request, RequestHandler, Response } from "express"
+import { RequestHandler } from "express"
 
 /**
  * Exclusion Middleware
@@ -12,41 +12,35 @@ import { NextFunction, Request, RequestHandler, Response } from "express"
  * @param {string[]} paths An array of paths to compare against the request path.
  * @param {RequestHandler} fn The middleware to run if the path is not excluded.
  * @example
- * ```ts
- * import cors from "cors"
- * import express from "express"
- * import except from "cors-except"
- *
- * const { FRONTEND_URL } = process.env
- * if (!FRONTEND_URL) throw new Error("FRONTEND_URL is missing")
- *
- * const server = express()
- *
- * const whitelist = [FRONTEND_URL]
- * const corsExceptions = [
- *   "/users/login/oauth/google/redirect",
- *   "/users/login/oauth/facebook/redirect"
- * ]
- *
- * const corsOptions: cors.CorsOptions = {
- *   origin: (origin, next) => {
- *     try {
- *       if (whitelist.indexOf(origin!) !== -1) next(null, true)
- *       else next(createError(400, "Cross-Site Origin Policy blocked your request"))
- *     } catch (error: any) {
- *       next(error)
- *     }
- *   },
- *   credentials: true
- * }
- *
- * server.use(except(corsExceptions, cors(corsOptions)))
+ * ```js
+  import cors from "cors"
+  import express from "express"
+  import except from "cors-except"
+
+  const server = express()
+
+  const whitelist = ["https://frontend.url"]
+  const corsOptions = {
+    origin: (origin, next) => {
+      try {
+        if (whitelist.indexOf(origin) !== -1) next(null, true)
+        else next(new Error("Not allowed by CORS"))
+      } catch (error) {
+        next(error)
+      }
+    }
+  }
+
+  const corsExceptions = ["/without-cors"]
+  server.use(except(corsExceptions, cors(corsOptions)))
+
+  server.get("/without-cors", (_, res) => res.send("Any origin"))
+  server.get("*", (_, res) => res.send("corsOptions origin only"))
+  server.listen(() => console.log("Server started"))
  * ```
  */
-export default function except(paths: string[], fn: RequestHandler): RequestHandler {
-  return (req, res, next) => {
-    const { path } = req
-    if (paths.indexOf(path) !== -1) return next()
-    return fn(req, res, next)
-  }
-}
+const except =
+    (paths: string[], fn: RequestHandler): RequestHandler =>
+    (req, res, next) =>
+        paths.indexOf(req.path) !== -1 ? next() : fn(req, res, next)
+export default except

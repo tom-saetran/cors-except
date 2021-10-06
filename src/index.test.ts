@@ -17,4 +17,8 @@ describe("cors-except tests", () => {
     except(["/not_test"], mockHandler)(req, {} as any, next)
     expect(next).not.toHaveBeenCalled()
   })
+
+  it("should test that except is a function", () => {
+    expect(typeof except).toBe("function")
+  })
 })
