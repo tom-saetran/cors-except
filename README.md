@@ -1,7 +1,5 @@
 # cors-except
 
-## License GPL-3.0 License
-
 This package provides a middleware that allows CORS requests to be selectively checked. It is useful for services that needs to be accessed by browsers.
 
 ## Usage
