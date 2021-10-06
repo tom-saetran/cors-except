@@ -43,9 +43,10 @@ import { NextFunction, Request, RequestHandler, Response } from "express"
  * server.use(except(corsExceptions, cors(corsOptions)))
  * ```
  */
-const except =
-  (paths: string[], fn: RequestHandler): ((req: Request, res: Response, next: NextFunction) => void) =>
-  (req, res, next) =>
-    paths.some(path => req.path.startsWith(path)) ? next() : fn(req, res, next)
-
-export default except
+export default function except(paths: string[], fn: RequestHandler): RequestHandler {
+  return (req, res, next) => {
+    const { path } = req
+    if (paths.indexOf(path) !== -1) return next()
+    return fn(req, res, next)
+  }
+}
