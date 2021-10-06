@@ -3,3 +3,4 @@ package-lock.json
 tsconfig.json
 .github
 SECURITY.md
+jest.config.js
