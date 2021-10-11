@@ -1,5 +1,3 @@
-import { RequestHandler } from "express"
-
 /**
  * Exclusion Middleware
  *
@@ -10,7 +8,8 @@ import { RequestHandler } from "express"
  * If the path is in the list, the middleware is not executed.
  *
  * @param {string[]} paths An array of paths to compare against the request path.
- * @param {RequestHandler} fn The middleware to run if the path is not excluded.
+ * @param {import("express").RequestHandler} fn The middleware to run if the path is not excluded.
+ * @returns {import("express").RequestHandler} next() or fn() depending on whether the path is excluded.
  * @example
  * ```js
   import cors from "cors"
@@ -39,8 +38,7 @@ import { RequestHandler } from "express"
   server.listen(() => console.log("Server started"))
  * ```
  */
-const except =
-    (paths: string[], fn: RequestHandler): RequestHandler =>
-    (req, res, next) =>
-        paths.indexOf(req.path) !== -1 ? next() : fn(req, res, next)
-export default except
+const except = (paths: string[], fn: import("express").RequestHandler): import("express").RequestHandler => (req, res, next) => paths.indexOf(req.path) !== -1 ? next() : fn(req, res, next)
+
+except.default = except
+export = except
